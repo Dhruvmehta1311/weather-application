@@ -46,10 +46,11 @@ function updateWeather(data) {
   pressure.textContent = `Pressure: ${data.main.pressure}`;
   humidity.textContent = `Humidity: ${data.main.humidity}`;
   windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
+  description.textContent = `Description: ${data.weather[0].main}`;
   console.log(data.weather[0].main);
   if (data.weather[0].main == "Clouds") {
     rainy.classList.remove("hidden");
-  } else if (data.weather[0].main == "Clear") {
+  } else if (data.weather[0].main == "Clear" || "Haze") {
     rainy.classList.add("hidden");
     sunny.classList.remove("hidden");
   }
