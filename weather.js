@@ -11,6 +11,9 @@ const feelsLike = document.querySelector("#feelsLike");
 const tempData = document.querySelector("#tempData");
 const cityData = document.querySelector("#cityData");
 const loader = document.querySelector("#loader");
+const rainy = document.querySelector("#rainy");
+const description = document.querySelector("#description");
+const sunny = document.querySelector("#sunny");
 
 let cityName = "";
 
@@ -24,7 +27,7 @@ async function getLatestWeather(cityName) {
     const api = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=3ca41a078e3e15869ced3d9f74d2d83e`;
     const res = await fetch(api);
     if (!res.ok) {
-      throw new error("CIty Not Found");
+      throw new error("City Not Found");
     }
     const data = await res.json();
     updateWeather(data);
@@ -43,6 +46,13 @@ function updateWeather(data) {
   pressure.textContent = `Pressure: ${data.main.pressure}`;
   humidity.textContent = `Humidity: ${data.main.humidity}`;
   windSpeed.textContent = `Wind Speed: ${data.wind.speed}`;
+  console.log(data.weather[0].main);
+  if (data.weather[0].main == "Clouds") {
+    rainy.classList.remove("hidden");
+  } else if (data.weather[0].main == "Clear") {
+    rainy.classList.add("hidden");
+    sunny.classList.remove("hidden");
+  }
 }
 
 function showLoader() {
