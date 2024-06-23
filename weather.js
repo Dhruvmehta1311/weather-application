@@ -86,7 +86,13 @@ backBtn.addEventListener("click", () => {
 });
 
 screenshotBtn.addEventListener("click", () => {
-  html2canvas(unhideDiv).then((canvas) => {
+  html2canvas(unhideDiv, {
+    useCORS: true, // needed for image to load
+    scale: window.devicePixelRatio,
+    logging: true,
+    allowTaint: true,  // Allow cross-origin images to be used in the canvas
+    backgroundColor: null
+  }).then((canvas) => {
     canvas.toBlob((blob) => {
       navigator.clipboard
         .write([new ClipboardItem({ "image/png": blob })])
